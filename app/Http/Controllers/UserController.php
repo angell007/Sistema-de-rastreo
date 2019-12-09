@@ -71,4 +71,13 @@ class UserController extends Controller
 
         return view('admin.users.show', compact('user'));
     }
+
+    public function destroy(Request $request, $id)
+    {
+        if ($request->expectsJson()) {
+            User::findOrFail($id)->delete();
+            return response('User eliminado Correctamente.');
+        }
+        return abort(404);
+    }
 }

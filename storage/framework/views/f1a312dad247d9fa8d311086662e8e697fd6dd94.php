@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="ml-auto d-flex align-items-center secondary-menu text-center m-2">
 
@@ -9,7 +8,7 @@
     </a>
 
     <div class="card-header bg-transparent">
-        <h3 class="mb-0">{{'Detalles de Orden Nº : '. $order->consecutivo}}</h3>
+        <h3 class="mb-0"><?php echo e('Detalles de Orden Nº : '. $order->consecutivo); ?></h3>
     </div>
 
 </div>
@@ -33,13 +32,13 @@
                             </tr>
                         <tbody>
                             <tr>
-                                <th>{{$order->fecha_ingreso}}</th>
-                                <th>{{$order->referencia}}</th>
-                                <th>{{$order->serial}}</th>
-                                <th>{{$order->consecutivo}}</th>
-                                <th>{{$order->estado}}</th>
-                                <th>{{$order->diagnostico}}</th>
-                                <th>{{$order->observaciones}}</th>
+                                <th><?php echo e($order->fecha_ingreso); ?></th>
+                                <th><?php echo e($order->referencia); ?></th>
+                                <th><?php echo e($order->serial); ?></th>
+                                <th><?php echo e($order->consecutivo); ?></th>
+                                <th><?php echo e($order->estado); ?></th>
+                                <th><?php echo e($order->diagnostico); ?></th>
+                                <th><?php echo e($order->observaciones); ?></th>
                             </tr>
                         </tbody>
                         </thead>
@@ -73,10 +72,10 @@
 </div>
 
 
-@stop
-@section('scripts')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
 <script>
-    var orden = @json($order->id);
+    var orden = <?php echo json_encode($order->id, 15, 512) ?>;
     dtHistoria = $('#dataTAbleClienteShow').DataTable({
         processing: true,
         serverSide: true,
@@ -86,6 +85,8 @@
     });
 
 </script>
-<script src="{{ asset('/apis/apiSeguimientos.js') }}"></script>
+<script src="<?php echo e(asset('/apis/apiSeguimientos.js')); ?>"></script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\SRastreo\resources\views/admin/seguimientos/show.blade.php ENDPATH**/ ?>

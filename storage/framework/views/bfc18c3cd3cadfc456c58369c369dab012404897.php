@@ -4,4 +4,10 @@
         <i class="fa fa-fw fa-eye"></i>
     </a>
 
-</div><?php /**PATH C:\laragon\www\SRastreo\resources\views/admin/users/actions.blade.php ENDPATH**/ ?>
+    <a class="btn btn-xs btn-icon btn-danger delete-usser" href="javascript:void(0)" onclick="eliminarUser(<?php echo e($id); ?>)"
+        data-toggle="tooltip" title="Eliminar">
+        <i class="fa fa-fw fa-trash"></i>
+    </a>
+
+</div>
+<?php /**PATH C:\laragon\www\SRastreo\resources\views/admin/users/actions.blade.php ENDPATH**/ ?>

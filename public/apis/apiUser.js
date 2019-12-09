@@ -192,13 +192,14 @@ function eliminarUser(ente_id) {
                     .then(response => {
                         if (response.ok) {
                             response.text().then(success => {
-                                dtUsers.draw();
+                                // dtUsers.draw();
                                 toastr.remove()
                                 toastr.info('Success:', success);
+                                location.reload();
                             });
                         } else {
                             response.text().then(error => {
-                                toastr.remove()
+                                // toastr.remove()
                                 // toastr.error('Error:', error);
                                 console.log('request failed', error);
 

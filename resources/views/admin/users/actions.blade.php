@@ -4,4 +4,9 @@
         <i class="fa fa-fw fa-eye"></i>
     </a>
 
+    <a class="btn btn-xs btn-icon btn-danger delete-usser" href="javascript:void(0)" onclick="eliminarUser({{$id}})"
+        data-toggle="tooltip" title="Eliminar">
+        <i class="fa fa-fw fa-trash"></i>
+    </a>
+
 </div>
