@@ -46,6 +46,6 @@
 @include('admin.users.partials.formRegister')
 
 @stop
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('/apis/apiUser.js') }}"></script>
-@endsection
+@endpush

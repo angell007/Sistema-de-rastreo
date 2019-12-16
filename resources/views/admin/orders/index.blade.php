@@ -40,37 +40,60 @@
                     </div>
                 </div>
 
-                <div class="export-table-wrapper table-responsive">
-                    <table class="table table-bordered dT display" style="color:black" id="dataTableEquipos"
-                        width="100%" cellspacing="0">
+                <div class="row mb-3">
+                    <div class="col-12" id="box">
+                        <label for="" id="resultTotal" class="form-control text text-primary font-weight-bold"></label>
+                    </div>
 
-                        <thead class="thead">
-                            <tr>
-                                <th>S. No</th>
-                                <th>Fecha Ingreso</th>
-                                <th>Referencia</th>
-                                <th>Serial</th>
-                                <th>Nº Orden</th>
-                                <th>Estado</th>
-                                <th>Diagnostico</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <div class="export-table-wrapper table-responsive">
+                        <table class="table table-bordered compact display " style="color:black" id="dataTableEquipos"
+                            width="100%" cellspacing="0">
+
+                            <thead class="thead">
+                                <tr>
+                                    <th>S. No</th>
+                                    <th>Fecha Ingreso</th>
+                                    <th>Referencia</th>
+                                    <th>Serial</th>
+                                    <th>Nº Orden</th>
+                                    <th>Estado</th>
+                                    <th>Diagnostico</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
-@include('admin.orders.partials.formUpdate')
-@include('admin.orders.partials.formRegister')
+    @include('admin.orders.partials.formUpdate')
+    @include('admin.orders.partials.formRegister')
 
-@stop
-@section('scripts')
+    @stop
+    @push('scripts')
 
-<script src="{{ asset('/apis/apiOrder.js') }}"></script>
-<script src="{{ asset('/js/addvalor.js') }}"></script>
+    <script src="{{ asset('/apis/apiOrder.js') }}"></script>
+    <script src="{{ asset('/js/addvalor.js') }}"></script>
+    <script src="{{ asset('/js/evalfecha.js') }}"></script>
 
-@endsection
+    <script>
+        $('.selectpicker').select2({
+        dropdownParent: $("#modalEquipoRegister"),
+        theme: "classic",
+        width: 'resolve',
+
+    });
+
+        $('.selectpicker2').select2({
+        dropdownParent: $("#modalEquipoUpdate"),
+        theme: "classic",
+        width: 'resolve',
+
+    });
+
+    </script>
+
+    @endpush

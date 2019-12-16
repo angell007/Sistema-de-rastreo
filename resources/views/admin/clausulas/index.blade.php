@@ -47,6 +47,6 @@
 @include('admin.clausulas.partials.formRegister')
 
 @stop
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('/apis/apiClausula.js') }}"></script>
-@endsection
+@endpush

@@ -47,6 +47,6 @@
 @include('admin.acciones.partials.formRegister')
 
 @stop
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('/apis/apiAccion.js') }}"></script>
-@endsection
+@endpush

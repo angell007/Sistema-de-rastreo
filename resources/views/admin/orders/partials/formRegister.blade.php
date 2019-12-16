@@ -16,7 +16,7 @@
 
                             <div class="form-group col-md-6">
                                 <label class="text-dark">Tecnico asignado</label>
-                                <select class="form-control" required="required" name="user_id" id="user_id">
+                                <select class="selectpicker" style="width: 100%" required="required" name="user_id" id="user_id">
                                     @foreach ($tecnicos as $tecnico)
                                     <option value="{{$tecnico->id}}">{{$tecnico->fullname}}</option>
                                     @endforeach
@@ -25,7 +25,8 @@
 
                             <div class="form-group col-md-6">
                                 <label class="text-dark">Propietrio</label>
-                                <select class="form-control" required="required" name="cliente_id" id="cliente_id">
+                                <select class="selectpicker" style="width: 100%" required="required" data-live-search="true"
+                                    name="cliente_id" id="cliente_id">
                                     @foreach ($clientes as $cliente)
                                     <option value="{{$cliente->id}}">{{$cliente->fullname}}</option>
                                     @endforeach
@@ -63,7 +64,7 @@
 
                             <div class="form-group col-md-6">
                                 <label class="text-dark">Estado</label>
-                                <select class="form-control" required="required" name="estado" id="estado">
+                                <select class="form-control" style="width: 100%" required="required" name="estado" id="estado">
                                     <option value="En proceso">En proceso</option>
                                     <option value="Listo para entregar">Listo para entregar</option>
                                     <option value="Entregado">Entregado</option>

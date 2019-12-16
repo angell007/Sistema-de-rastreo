@@ -42,9 +42,9 @@
 
 
 @stop
-@section('scripts')
+@push('scripts')
 <script>
     var cliente = @json($cliente->id);
 </script>
 <script src="{{ asset('/apis/apiOrderCliente.js') }}"></script>
-@endsection
+@endpush

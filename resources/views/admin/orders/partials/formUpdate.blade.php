@@ -18,7 +18,7 @@
 
                             <div class="form-group col-md-6">
                                 <label class="text-dark">Tecnico asignado</label>
-                                <select class="form-control" required="required" name="user_id" id="user_id">
+                                <select class="selectpicker2" style="width: 100%" required="required" name="user_id" >
                                     @foreach ($tecnicos as $tecnico)
                                     <option value="{{$tecnico->id}}">{{$tecnico->name}}</option>
                                     @endforeach
@@ -27,7 +27,7 @@
 
                             <div class="form-group col-md-6">
                                 <label class="text-dark">Propietrio</label>
-                                <select class="form-control" required="required" name="cliente_id" id="cliente_id">
+                                <select class="selectpicker2" style="width: 100%" required="required" name="cliente_id" >
                                     @foreach ($clientes as $cliente)
                                     <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                                     @endforeach
@@ -36,13 +36,13 @@
 
                             <div class="form-group col-md-6">
                                 <label class="text-dark">Referencia de equipo </label>
-                                <input type="text" class="form-control" id="referencia" required="required"
+                                <input type="text" class="form-control"  required="required"
                                     name="referencia" placeholder="referencia ...">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label class="text-dark">Serial de equipo </label>
-                                <input type="text" class="form-control" id="serial" required="required" name="serial"
+                                <input type="text" class="form-control"  required="required" name="serial"
                                     placeholder="serial ...">
                             </div>
 
@@ -60,11 +60,18 @@
 
                             <div class="form-group col-md-6">
                                 <label class="text-dark">Estado</label>
-                                <select class="form-control" required="required" name="estado" id="estado">
-                                    <option value="En proceso">En proceso</option>
-                                    <option value="Listo para entregar">Listo para entregar</option>
+                                <select class="form-control" required="required" name="estado"
+                                    onchange="ingresoFecha(this);">
                                     <option value="Entregado">Entregado</option>
+                                    <option value="Listo para entregar">Listo para entregar</option>
+                                    <option value="En proceso">En proceso</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group col-md-12" id="bloque_fs">
+                                <label class="text-dark">Fecha de entrega</label>
+                                <input type="date" class="form-control" id="fecha_salida" name="fecha_salida"
+                                    placeholder="12/2/12">
                             </div>
 
                             <div class="form-group col-md-12">
@@ -75,13 +82,13 @@
 
                             <div class="form-group col-md-12">
                                 <label class="text-dark">Observacion</label>
-                                <textarea type="text" class="form-control" id="observaciones" name="observaciones"
+                                <textarea type="text" class="form-control"  name="observaciones"
                                     placeholder="Observacion"></textarea>
                             </div>
 
                             <div class="form-group col-md-12">
                                 <label class="text-dark">Diagnostico</label>
-                                <textarea type="text" class="form-control" id="diagnostico" name="diagnostico"
+                                <textarea type="text" class="form-control"  name="diagnostico"
                                     placeholder="Diagnostico"></textarea>
                             </div>
 

@@ -52,6 +52,6 @@
 @include('admin.clientes.partials.formRegister')
 
 @stop
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('/apis/apiClient.js') }}"></script>
-@endsection
+@endpush

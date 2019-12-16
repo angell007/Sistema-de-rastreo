@@ -8,51 +8,50 @@
 
 <body style="background-color:white">
 
-        <table width="100%" style=" padding: 2px; margin: 0em .1em .1em 0em; border: #000 1px solid; border-radius: 15px">
-                <tr>
-                    <td style="background-color: #fff; text-align: left; padding: 0">
-                        <div style="width: 100%; margin:3px 0; display: inline-block;text-align: center">
-                            <img style="padding: 0; width: 100px; margin: 1px"
-                                src="{{asset('/img/logo.png')}}">
-                        </div>
-                    </td>
-                    <td style="background-color: #fff; text-align: center; padding: 0">
-                        <div style="width: 100%;margin:1px 0; display: inline-block;text-align: center">
+    <table width="100%" style=" padding: 2px; margin: 0em .1em .1em 0em; border: #000 1px solid; border-radius: 15px">
+        <tr>
+            <td style="background-color: #fff; text-align: left; padding: 0">
+                <div style="width: 100%; margin:3px 0; display: inline-block;text-align: center">
+                    <img style="padding: 0; width: 100px; margin: 1px" src="{{asset('/img/logo.png')}}">
+                </div>
+            </td>
+            <td style="background-color: #fff; text-align: center; padding: 0">
+                <div style="width: 100%;margin:1px 0; display: inline-block;text-align: center">
 
 
 
-                            <li style="list-style:none;">
-                                <h3 style="text-align:center;margin: 0 5px 0 0;font-size: 20px">
-                                    {{$empresa->nombre}}
-                                </h3>
-                            </li>
+                    <li style="list-style:none;">
+                        <h3 style="text-align:center;margin: 0 5px 0 0;font-size: 20px">
+                            {{$empresa->nombre}}
+                        </h3>
+                    </li>
 
-                            <li style="list-style:none; font-weight:500;">Nit:<span> {{$empresa->nit}}</span></li>
-                            <li style="list-style:none; font-weight:500;">Telefono:<span> {{$empresa->telefono}}</span></li>
-                            <li style="list-style:none; font-weight:500;">Email:<span> {{$empresa->email}}</span></li>
-                            <li style="list-style:none; font-weight:500;">Direccion:<span> {{$empresa->direccion}}</span></li>
+                    <li style="list-style:none; font-weight:500;">Nit:<span> {{$empresa->nit}}</span></li>
+                    <li style="list-style:none; font-weight:500;">Telefono:<span> {{$empresa->telefono}}</span></li>
+                    <li style="list-style:none; font-weight:500;">Email:<span> {{$empresa->email}}</span></li>
+                    <li style="list-style:none; font-weight:500;">Direccion:<span> {{$empresa->direccion}}</span></li>
 
-                        </div>
-                    </td>
+                </div>
+            </td>
 
-                    <td style="background-color: #fff; text-align: right; padding: 0">
-                        <div style="width: 100%;margin:1px 0; display: inline-block;text-align: center">
+            <td style="background-color: #fff; text-align: right; padding: 0">
+                <div style="width: 100%;margin:1px 0; display: inline-block;text-align: center">
 
 
-                            <li style="list-style:none;">
-                                <h3 style="text-align:center;margin: 0 5px 0 0;font-size: 20px">
-                                    Detalles de Orden
-                                </h3>
-                            </li>
+                    <li style="list-style:none;">
+                        <h3 style="text-align:center;margin: 0 5px 0 0;font-size: 20px">
+                            Detalles de Orden
+                        </h3>
+                    </li>
 
-                            <li style="list-style:none; font-weight:500;">Nº.</span></li>
-                            <li style="list-style:none; font-weight:500;"><span> {{$order->consecutivo}} </span></li>
-                            <li style="list-style:none; font-weight:500;">Fecha de expedicón </span></li>
-                            <li style="list-style:none; font-weight:500;"><span> {{ date('Y-m-d') }}</span></li>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                    <li style="list-style:none; font-weight:500;">Nº.</span></li>
+                    <li style="list-style:none; font-weight:500;"><span> {{$order->consecutivo}} </span></li>
+                    <li style="list-style:none; font-weight:500;">Fecha de expedicón </span></li>
+                    <li style="list-style:none; font-weight:500;"><span> {{ date('Y-m-d') }}</span></li>
+                </div>
+            </td>
+        </tr>
+    </table>
 
     <table width="100%" style=" margin: 0em .1em .1em 0em;">
         <tr>
@@ -62,16 +61,23 @@
                 <h4 style="text-align:center;margin: .2em 0em 0em 0em;">
                     Detalles de Equipo
                 </h4>
-                <li style="margin: 0em 0em 0em 1em; list-style:none;" ;>Referencia de equipo :
+                <li style="margin: 0em 0em 0em 1em; list-style:none;">Referencia de equipo :
                     <span> {{$order->referencia}}</span>
                 </li>
-                <li style="margin: 0em 0em 0em 1em; list-style:none;" ;>Serial de equipo :
+                <li style="margin: 0em 0em 0em 1em; list-style:none;">Serial de equipo :
                     <span> {{$order->serial}}</span>
                 </li>
 
-                <li style="margin: 0em 0em 0em 1em; list-style:none;" ;> Estado :
+                <li style="margin: 0em 0em 0em 1em; list-style:none;"> Estado :
                     <span style="font-size: 1em; color : #1976D2; font-weight: bolder;"> {{$order->estado}}</span>
                 </li>
+
+                @if (!empty($order->fecha_salida))
+                <li style="margin: 0em 0em 0em 1em; list-style:none;"> Fecha entregado :
+                    <span> {{$order->fecha_salida}}</span>
+                </li>
+                @endif
+
             </td>
 
             <td style="background-color: #fff; text-align: left;border: #000 1px solid;border-radius: 15px">
@@ -148,7 +154,8 @@
     <table width="100%" style=" margin: .8em 0 0 1em;">
         <tr>
             <td style="font-weight:600; text-align: left;">Total, Servicios:</td>
-            <td style="font-weight:bold; font-size:20px; text-align: right; color:#f44336;">${{$order->valor_total}}</td>
+            <td style="font-weight:bold; font-size:20px; text-align: right; color:#f44336;">${{$order->valor_total}}
+            </td>
         </tr>
 
     </table>

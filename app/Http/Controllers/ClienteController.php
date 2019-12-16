@@ -126,7 +126,20 @@ class ClienteController extends Controller
     {
         if (request()->expectsJson()) {
             return datatables()->of(Order::where('cliente_id', $cliente)->latest())
-                ->addColumn('action', 'admin.OrdersCliente.actions')
+                ->editColumn('action', function ($data) {
+                    $button =  '<div class="text-lg-right text-nowrap">';
+                    $button .= '<a class="btn btn-success edit-cliente" href="javascript:void(0)" onclick="editarCliente(' . $data->id . ')"
+                    title="Editar"><i class="fa fa-edit"></i></a>';
+
+                    $button .=  '<a class="btn btn-danger delete-cliente" href="javascript:void(0)" onclick="eliminarCliente(' . $data->id . ')"
+                    title="Eliminar"><i class="fa fa-fw fa-trash"></i></a>';
+
+                    $button .=  '<a class="btn btn-primary delete-cliente" href="/clientes/"' . $data->id .
+                    'title="Datalles"><i class="fa fa-fw fa-eye"></i></a>';
+
+                    $button .= '</div>';
+                    return $button;
+                })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->toJson();

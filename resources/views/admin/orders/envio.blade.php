@@ -63,16 +63,22 @@
                 <h4 style="text-align:center;margin: .2em 0em 0em 0em;">
                     Detalles de Equipo
                 </h4>
-                <li style="margin: 0em 0em 0em 1em; list-style:none;" ;>Referencia de equipo :
+                <li style="margin: 0em 0em 0em 1em; list-style:none;" >Referencia de equipo :
                     <span> {{$order->referencia}}</span>
                 </li>
-                <li style="margin: 0em 0em 0em 1em; list-style:none;" ;>Serial de equipo :
+                <li style="margin: 0em 0em 0em 1em; list-style:none;" >Serial de equipo :
                     <span> {{$order->serial}}</span>
                 </li>
 
-                <li style="margin: 0em 0em 0em 1em; list-style:none;" ;> Estado :
+                <li style="margin: 0em 0em 0em 1em; list-style:none;" > Estado :
                     <span style="font-size: 1.3em; color : #1976D2; font-weight: bolder;"> {{$order->estado}}</span>
                 </li>
+
+                @if (!empty($order->fecha_salida))
+                <li style="margin: 0em 0em 0em 1em; list-style:none;"> Fecha entregado :
+                    <span> {{$order->fecha_salida}}</span>
+                </li>
+                @endif
 
             </td>
 

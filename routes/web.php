@@ -1,14 +1,15 @@
 <?php
 
-
+use App\DataTables\OrderDataTable;
+use App\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::view('/pdf', 'prueba');
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/data', 'OrderController@data')->name('data');
 
 Route::get('/', 'HomeController@welcome')->name('/');
 

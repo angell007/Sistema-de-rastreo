@@ -9,9 +9,12 @@ use App\Order;
 use App\Http\Requests\OrderRequest;
 use App\Mail\OrdenEmail;
 use App\Repository\OrderRepository;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
@@ -32,19 +35,46 @@ class OrderController extends Controller
     public function index(Request $request)
     {
 
-
-        if (request()->expectsJson()) {
-            return datatables()->of(Order::query())
-                ->addColumn('action', 'admin.orders.actions')
-                ->rawColumns(['action'])
-                ->addIndexColumn()
-                ->toJson();
-        }
-
         $acciones = $this->orderRepository->acciones();
         $tecnicos = $this->orderRepository->tecnicos();
         $clientes = $this->orderRepository->clientes();
         return view('admin.orders.index', compact('tecnicos', 'acciones', 'clientes'));
+    }
+
+    public function data()
+    {
+        if (request()->expectsJson()) {
+            return datatables(DB::table('orders')->select('fecha_ingreso', 'referencia', 'serial', 'consecutivo', 'estado', 'diagnostico', 'id')->latest()) //9 285, 291 300
+                ->editColumn('action', function ($data) {
+                    $button = '
+                    <div class="text-lg-right text-nowrap">
+                    ';
+                    $button  .= '<a class="btn btn-xs btn-icon btn-primary edit-equipo" href="javascript:void(0)" onclick="editarEquipo(' . $data->id . ')"
+                    data-toggle="tooltip" title="Editar">
+                    <i class="fa fa-edit fa-fw" aria-hidden="true"></i>
+                    </a>';
+                    $button .= '<a class="btn btn-xs btn-dark" href="/orders/' . $data->id . '" title="Historial">
+                    <i class="fa fa-fw fa-calendar"></i>
+                    </a>';
+                    $button .= '<a class="btn btn-xs btn-warning" href="/orders/printOrder/' . $data->id . '" target="_blank" title="Descargar">
+                    <i class="fa fa-fw fa-print"></i>
+                    </a>';
+                    $button  .= '<a class="btn btn-xs btn-success" id="btnOrderEnviar"  onclick="orderEnviar(' . $data->id . ')" href="javascript:void(0)" title="enviar">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    </a>';
+                    $button .= '<a class="btn btn-xs btn-icon btn-danger delete-equipo" href="javascript:void(0)" onclick="eliminarEquipo(' . $data->id . ')"
+                    data-toggle="tooltip" title="Eliminar">
+                    <i class="fa fa-fw fa-trash"></i>
+                    </a>';
+                    $button .= '
+                    </div>';
+
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->toJson();
+        }
     }
 
     /**
@@ -170,10 +200,39 @@ class OrderController extends Controller
     {
         try {
 
+            $inicio = Carbon::createFromDate($finicio);
+            $fin = Carbon::createFromDate($ffin)->addDays(1);
+
             if (request()->expectsJson()) {
-                $data = Order::whereBetween('fecha_ingreso', [$finicio, $ffin])->get();
-                return datatables()->of($data)
-                    ->addColumn('action', 'admin.orders.actions')
+                return datatables(DB::table('orders')
+                    ->whereBetween('fecha_ingreso', [$inicio, $fin])
+                    ->select('fecha_ingreso', 'referencia', 'serial', 'consecutivo', 'estado', 'diagnostico', 'id', 'total')->latest())
+                    ->addColumn('action', function ($data) {
+                        $button = '
+                    <div class="text-lg-right text-nowrap">
+                    ';
+                        $button  .= '<a class="btn btn-xs btn-icon btn-primary edit-equipo" href="javascript:void(0)" onclick="editarEquipo(' . $data->id . ')"
+                    data-toggle="tooltip" title="Editar">
+                    <i class="fa fa-edit fa-fw" aria-hidden="true"></i>
+                    </a>';
+                        $button .= '<a class="btn btn-xs btn-dark" href="/orders/' . $data->id . '" title="Historial">
+                    <i class="fa fa-fw fa-calendar"></i>
+                    </a>';
+                        $button .= '<a class="btn btn-xs btn-warning" href="/orders/printOrder/' . $data->id . '" target="_blank" title="Descargar">
+                    <i class="fa fa-fw fa-print"></i>
+                    </a>';
+                        $button  .= '<a class="btn btn-xs btn-success" id="btnOrderEnviar"  onclick="orderEnviar(' . $data->id . ')" href="javascript:void(0)" title="enviar">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    </a>';
+                        $button .= '<a class="btn btn-xs btn-icon btn-danger delete-equipo" href="javascript:void(0)" onclick="eliminarEquipo(' . $data->id . ')"
+                    data-toggle="tooltip" title="Eliminar">
+                    <i class="fa fa-fw fa-trash"></i>
+                    </a>';
+                        $button .= '
+                    </div>';
+
+                        return $button;
+                    })
                     ->rawColumns(['action'])
                     ->addIndexColumn()
                     ->toJson();
@@ -183,6 +242,27 @@ class OrderController extends Controller
         }
     }
 
+    // try {
+
+    //     $inicio = Carbon::createFromDate($finicio);
+    //     $fin = Carbon::createFromDate($ffin)->addDays(1);
+
+    //     if (request()->expectsJson()) {
+
+    //         $data = Cache::remember('filtroOrdenes', Carbon::now()->addHour(1), function () {
+    //             return Order::whereBetween('fecha_ingreso', [$this->inicio, $this->fin])->get();
+    //         });
+
+    //         return datatables()->of($data)
+    //             ->addColumn('action', 'admin.orders.actions')
+    //             ->rawColumns(['action'])
+    //             ->addIndexColumn()
+    //             ->toJson();
+    //     }
+    // } catch (\Throwable $th) {
+    //     return json_encode($th->getMessage());
+    // }
+
     public function enviar($key)
     {
 
@@ -190,7 +270,7 @@ class OrderController extends Controller
             $order = Order::with('cliente')->findOrFail($key);
             $clausulas = Clausula::all();
             $empresa = Empresa::first();
-            Mail::to($order->cliente->email)->send(new OrdenEmail($order, $clausulas,$empresa));
+            Mail::to($order->cliente->email)->send(new OrdenEmail($order, $clausulas, $empresa));
             return response('Envio correcto.', 200);
         } catch (\Exception $ex) {
             return response($ex->getMessage(), 500);

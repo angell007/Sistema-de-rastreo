@@ -66,6 +66,6 @@
 </div>
 
 @stop
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('/apis/apiEmpresa.js') }}"></script>
-@endsection
+@endpush

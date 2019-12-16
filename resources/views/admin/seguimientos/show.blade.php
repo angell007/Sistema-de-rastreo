@@ -74,7 +74,7 @@
 
 
 @stop
-@section('scripts')
+@push('scripts')
 <script>
     var orden = @json($order->id);
     dtHistoria = $('#dataTAbleClienteShow').DataTable({
@@ -88,4 +88,4 @@
 </script>
 <script src="{{ asset('/apis/apiSeguimientos.js') }}"></script>
 
-@endsection
+@endpush

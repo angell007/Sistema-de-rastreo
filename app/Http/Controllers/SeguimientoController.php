@@ -19,7 +19,7 @@ class SeguimientoController extends Controller
         if (!is_null(request()->numero)) {
             switch (request()->filtro) {
                 case 'Serial':
-                    $order =  Order::where('serial', request()->numero)->first();
+                    $order =  Order::where('serial', request()->numero)->get()->last();
                     if (!is_null($order)) {
                         return view('admin.seguimientos.show', compact('order'));
                     }
@@ -27,7 +27,7 @@ class SeguimientoController extends Controller
                     break;
                 case 'Referencia':
 
-                    $order =  Order::where('referencia', request()->numero)->first();
+                    $order =  Order::where('referencia', request()->numero)->get()->last();
                     if (!is_null($order)) {
                         return view('admin.seguimientos.show', compact('order'));
                     }

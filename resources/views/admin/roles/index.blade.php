@@ -52,7 +52,7 @@
 @include('admin.orders.partials.formRegister')
 
 @stop
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('/apis/apiEquipo.js') }}"></script>
 {{-- <script>
     $('.acciones').selectize({
@@ -60,4 +60,4 @@
         persist: false,
 });
 </script> --}}
-@endsection
+@endpush

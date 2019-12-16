@@ -41,6 +41,6 @@
 <input type="hidden" name="user_id" id="user_id" value={{$user->id}}>
 
 @stop
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('/apis/apiRol.js') }}"></script>
-@endsection
+@endpush

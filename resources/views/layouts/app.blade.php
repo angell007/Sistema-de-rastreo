@@ -25,6 +25,7 @@
     <link href="{{asset('css/datatablecss/toastr.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('/fontawesome/css/all.min.css')}}" rel="stylesheet" type="text/css" />
 
+    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -52,6 +53,14 @@
     .child td {
         word-wrap: break-word;
         white-space: normal !important;
+    }
+
+    .selectpicker {
+        width: 100%;
+    }
+
+    .select2-container {
+        margin-top: 1em;
     }
 </style>
 
@@ -94,14 +103,16 @@
     </div>
 
     <script src="{{asset('js/jquery-3.3.1.js')}}"></script>
+
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/datatablejs/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('js/datatablejs/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('js/datatablejs/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('js/toastr.min.js')}}"></script>
+    <script src="{{asset('js/select2.min.js')}}"></script>
 
-    @yield('scripts')
+    @stack('scripts')
 
 </body>
 

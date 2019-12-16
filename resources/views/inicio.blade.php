@@ -47,4 +47,4 @@ border: 1px solid #c3c3c3;
     </form>
 </div>
 
-@endsection
+@stop

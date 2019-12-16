@@ -43,6 +43,6 @@
 <input type="hidden" name="cliente_id" id="cliente_id" value={{$cliente->id}}>
 
 @stop
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('/apis/apiOrderCliente.js') }}"></script>
-@endsection
+@endpush

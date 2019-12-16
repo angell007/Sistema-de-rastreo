@@ -47,6 +47,6 @@
 @include('admin.historias.formRegisterHistoria')
 
 @stop
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('/apis/apiHistorial.js') }}"></script>
-@endsection
+@endpush
